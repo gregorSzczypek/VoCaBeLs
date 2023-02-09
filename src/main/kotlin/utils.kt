@@ -5,8 +5,8 @@ import java.io.File
 fun saveReadIn(question: String, allowedWords: List<String>): String {
     while (true) {
         var input = ""
-        println(question)
-        println("Or type help to see available options or cancel to escape")
+        println(yellow + question + reset)
+        println(cyan + "Or type help to see available options or cancel to escape" + reset)
         input = readln().lowercase()
         if (allowedWords.contains(input)) {
             //println("Input accepted")

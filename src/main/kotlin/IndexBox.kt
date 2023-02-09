@@ -133,18 +133,24 @@ data class IndexBox(
         var wordToDelete = saveReadIn("Which word do you want to delete?", allWordsMotherTongueString)
         for (i in this.adjectivesList){
             if (i.mothertongueTranslation == wordToDelete){
+                println(red + "Word: ${i.mothertongueTranslation} successfully deleted!" + reset)
+                println()
                 this.adjectivesList.remove(i)
                 break
             }
         }
         for (i in this.verbsList){
             if (i.mothertongueTranslation == wordToDelete){
+                println(red + "Word: ${i.mothertongueTranslation} successfully deleted!" + reset)
+                println()
                 this.verbsList.remove(i)
                 break
             }
         }
         for (i in this.nounsList){
             if (i.mothertongueTranslation == wordToDelete){
+                println(red + "Word: ${i.mothertongueTranslation} successfully deleted!" + reset)
+                println()
                 this.nounsList.remove(i)
                 break
             }

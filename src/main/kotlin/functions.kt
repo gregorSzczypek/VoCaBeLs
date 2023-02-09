@@ -1,11 +1,17 @@
+// training asks for wordbox and number of rounds. And starts a training session
+// results are saved in a sliding window of 20 and confidences are calculated
+// according to confidence, the number of words is chosen. A higher confidence +
+// leads to a lower frequency in training.
+// According to the confidence of all single words, the confidence of the whole wordbox +
+// is calculated.
 fun training() {
 
-    println("Hello fellow human! It seems to be time for some good ol' training session.")
+    println("Hello human! It seems to be time for some good ol' training.")
     var boxForTrainingSession = saveReadIn(
         "Choose which word box you want to train today",
         stringListOfAllBoxes()
     )
-    println("Nice, lets train in word box: $boxForTrainingSession")
+    println(purple + "Nice, lets train in word box: $boxForTrainingSession" + reset)
     var numberOfRounds = saveReadIn(
         "how many words would you like to train today?",
         listOf("10", "20", "30", "40", "50")
@@ -28,25 +34,26 @@ fun training() {
         if (currentBox.adjectivesList.contains(questionWord)) {
             questionAdjective = currentBox.adjectivesList[currentBox.adjectivesList.indexOf(questionWord)]
             questionString = questionAdjective.mothertongueTranslation
-            println("Translate following word: $questionString")
+            println(purple + "Translate following word: $questionString" + reset)
             answer = readln().lowercase()
             questionAdjective.timesCalled += 1
             println("times called: ${questionAdjective.timesCalled}")
 
             if (answer == questionAdjective.learningLanguageTranslation) {
-                println(green + "You are amazing, the answer is right!" + reset)
+                println(green + "The answer is right!" + reset)
                 questionAdjective.timesRight += 1
                 questionAdjective.slidingWindowList.removeAt(0)
                 questionAdjective.slidingWindowList.add(1)
-                println("Sliding window: ${questionAdjective.slidingWindowList}")
+//                println("Sliding window: ${questionAdjective.slidingWindowList}")
                 questionAdjective.refreshConfidence()
                 println("The new conf for word $questionString is ${questionAdjective.confidence}")
                 println()
             } else {
                 println(red + "The answer was wrong :-(" + reset)
+                println(yellow + "Correct answer: ${questionAdjective.learningLanguageTranslation}" + reset)
                 questionAdjective.slidingWindowList.removeAt(0)
                 questionAdjective.slidingWindowList.add(-1)
-                println("Sliding window: ${questionAdjective.slidingWindowList}")
+//                println("Sliding window: ${questionAdjective.slidingWindowList}")
                 questionAdjective.refreshConfidence()
                 println("The new conf for word $questionString is ${questionAdjective.confidence}")
                 println()
@@ -56,25 +63,26 @@ fun training() {
         if (currentBox.verbsList.contains(questionWord)) {
             questionVerb = currentBox.verbsList[currentBox.verbsList.indexOf(questionWord)]
             questionString = questionVerb.mothertongueTranslation
-            println("Translate following word: $questionString")
+            println(purple + "Translate following word: $questionString" + reset)
             answer = readln().lowercase()
             questionVerb.timesCalled += 1
             println("times called: ${questionVerb.timesCalled}")
 
             if (answer == questionVerb.learningLanguageTranslation) {
-                println(green + "You are amazing, the answer is right!" + reset)
+                println(green + "The answer is right!" + reset)
                 questionVerb.timesRight += 1
                 questionVerb.slidingWindowList.removeAt(0)
                 questionVerb.slidingWindowList.add(1)
-                println("Sliding window: ${questionVerb.slidingWindowList}")
+//                println("Sliding window: ${questionVerb.slidingWindowList}")
                 questionVerb.refreshConfidence()
                 println("The new conf for word $questionString is ${questionVerb.confidence}")
                 println()
             } else {
                 println(red + "The answer was wrong :-(" + reset)
+                println(yellow + "Correct answer: ${questionVerb.learningLanguageTranslation}" + reset)
                 questionVerb.slidingWindowList.removeAt(0)
                 questionVerb.slidingWindowList.add(-1)
-                println("Sliding window: ${questionVerb.slidingWindowList}")
+//                println("Sliding window: ${questionVerb.slidingWindowList}")
                 questionVerb.refreshConfidence()
                 println("The new conf for word $questionString is ${questionVerb.confidence}")
                 println()
@@ -84,25 +92,26 @@ fun training() {
         if (currentBox.nounsList.contains(questionWord)) {
             questionNoun = currentBox.nounsList[currentBox.nounsList.indexOf(questionWord)]
             questionString = questionNoun.mothertongueTranslation
-            println("Translate following word: $questionString")
+            println(purple + "Translate following word: $questionString" + reset)
             answer = readln().lowercase()
             questionNoun.timesCalled += 1
             println("times called: ${questionNoun.timesCalled}")
 
             if (answer == questionNoun.learningLanguageTranslation) {
-                println(green + "You are amazing, the answer is right!" + reset)
+                println(green + "The answer is right!" + reset)
                 questionNoun.timesRight += 1
                 questionNoun.slidingWindowList.removeAt(0)
                 questionNoun.slidingWindowList.add(1)
-                println("Sliding window: ${questionNoun.slidingWindowList}")
+//                println("Sliding window: ${questionNoun.slidingWindowList}")
                 questionNoun.refreshConfidence()
                 println("The new conf for word $questionString is ${questionNoun.confidence}")
                 println()
             } else {
                 println(red + "The answer was wrong :-(" + reset)
+                println(yellow + "Correct answer: ${questionNoun.learningLanguageTranslation}" + reset)
                 questionNoun.slidingWindowList.removeAt(0)
                 questionNoun.slidingWindowList.add(-1)
-                println("Sliding window: ${questionNoun.slidingWindowList}")
+//                println("Sliding window: ${questionNoun.slidingWindowList}")
                 questionNoun.refreshConfidence()
                 println("The new conf for word $questionString is ${questionNoun.confidence}")
                 println()
@@ -121,7 +130,7 @@ fun createNewIndexBox() {
         val learningLanguageList = mutableListOf<String>("german", "spanish", "english", "polish", "russian",
             "turkish", "estonian", "mandarin", "french", "swedish", "norwegian", "arabic", "italian", "dutch", "finish",
             "hungarian", "bulgarian", "slowenian", "klingonian", "sindarin", "esperanto")
-        val boxName = readlnNotEmpty("Name your wordbox:", "Worbox name cannot be empty")
+        val boxName = readlnNotEmpty("Name your wordbox (e.g. french-swedish):", "Worbox name cannot be empty")
         var isDuplicate = false
         for (i in allIndexBoxes) {
             if (i.indexBoxName == boxName) {
@@ -132,8 +141,8 @@ fun createNewIndexBox() {
         if (isDuplicate == true) {
             continue // restart the while loop and ask for a name again
         }
-        val motherTongue = saveReadIn("Which is the mothertongue?", motherTongueList)
-        learningLanguageList.remove(motherTongue) // remove mothertongue from allowed learning languages
+        val motherTongue = saveReadIn("Which is the source language?", motherTongueList)
+        learningLanguageList.remove(motherTongue) // remove source language from allowed learning languages
         val learningLanguage = saveReadIn("Which is the learning language?", learningLanguageList)
         allIndexBoxes.add(IndexBox(boxName, motherTongue, learningLanguage))
         println("Wordbox $boxName was successfully created!")
@@ -191,7 +200,8 @@ fun deleteIndexBox() {
         val confirmation = saveReadIn(red + "Do you really want to remove wordbox $nameToDelete?" + reset, listOf("yes", "no"))
         if (confirmation == "yes") {
             allIndexBoxes.removeAt(j)
-            println(green + "Wordbox $nameToDelete was removed successfully" + reset)
+            println(red + "Wordbox $nameToDelete was removed successfully" + reset)
+            println()
         } else openMenu()
     } else {
         println(red + "Invalid name" + reset)
@@ -199,26 +209,30 @@ fun deleteIndexBox() {
     }
 }
 
-fun showAllWordboxes() { // TODO format statistics output
-
+fun showAllWordboxes() {
 
     for (i in allIndexBoxes){
         i.refreshConfidenceOfIndexBox()
         println(yellowBG + black + "${i.indexBoxName.uppercase()} - ${i.confidence}%".padEnd(57) + reset)
         println(purple + "ADJECTIVES" + reset)
         for (j in i.adjectivesList){
-            println("${j.mothertongueTranslation} - ${j.confidence}%")
+            println("${j.mothertongueTranslation} - ${j.learningLanguageTranslation} - ${j.confidence}% - " +
+                    "Times answered: ${j.timesCalled}")
         }
         println(purple + "VERBS" + reset)
         for (k in i.verbsList){
-            println("${k.mothertongueTranslation} - ${k.confidence}%")
+            println("${k.mothertongueTranslation} - ${k.learningLanguageTranslation} - ${k.confidence}% - " +
+                    "Times answered: ${k.timesCalled}")
         }
         println(purple + "NOUNS" + reset)
         for (l in i.nounsList){
-            println("${l.mothertongueTranslation} - ${l.confidence}%")
-        }
+            println("${l.mothertongueTranslation} - ${l.learningLanguageTranslation} - ${l.confidence}% - " +
+                    "Times answered: ${l.timesCalled}")
     }
-    println()
+        println()
+        Thread.sleep(700)
+    }
+    Thread.sleep(1300)
 }
 
 fun createChoiceOfWords(numberOfRounds: Int, boxForTrainingSession: String): MutableList<Word> {
@@ -234,10 +248,10 @@ fun createChoiceOfWords(numberOfRounds: Int, boxForTrainingSession: String): Mut
     var indexOfBox = stringListOfAllBoxes().indexOf(boxForTrainingSession)
     var currentBox = allIndexBoxes[indexOfBox]
 
-    println(amountLvl1)
-    println(amountLvl2)
-    println(amountLvl3)
-    println(amountLvl4)
+//    println(amountLvl1)
+//    println(amountLvl2)
+//    println(amountLvl3)
+//    println(amountLvl4)
 
     var adjectivesSaved = true
     var verbsSaved = true
@@ -307,10 +321,10 @@ fun createChoiceOfWords(numberOfRounds: Int, boxForTrainingSession: String): Mut
     allLvlWordList.addAll(allWordsListLvl3)
     allLvlWordList.addAll(allWordsListLvl4)
 
-    println(allWordsListLvl1)
-    println(allWordsListLvl2)
-    println(allWordsListLvl3)
-    println(allWordsListLvl4)
+//    println(allWordsListLvl1)
+//    println(allWordsListLvl2)
+//    println(allWordsListLvl3)
+//    println(allWordsListLvl4)
 
     if (numberOfRounds > allWordsListLvl1.size)
         amountLvl1 = allWordsListLvl1.size
@@ -377,7 +391,7 @@ fun createChoiceOfWords(numberOfRounds: Int, boxForTrainingSession: String): Mut
             choiceList.add(addWord)
             restOfWordsList.remove(addWord)
         } catch (e: Exception) {
-            println("Not enough words left, creating list anyway :-)")
+            println("Not enough words saved. There will be duplicates!")
             break
         }
     }
@@ -389,6 +403,6 @@ fun createChoiceOfWords(numberOfRounds: Int, boxForTrainingSession: String): Mut
             createNewWord()
         }
     }
-    println("ChoiceList:" + choiceList)
+//    println("ChoiceList:" + choiceList)
     return choiceList
 }

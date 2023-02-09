@@ -8,14 +8,14 @@ fun openMenu() {
     var choiceOfAction = ""
 
     while (true) {
-        println("What would you like to do?")
+        println(yellow + "What would you like to do?" + reset)
         println(purple + "1 - training" + reset)
         println(purple + "2 - create new index box" + reset)
         println(purple + "3 - create new word" + reset)
         println(purple + "4 - delete word" + reset)
         println(purple + "5 - show saved wordboxes" + reset)
         println(purple + "6 - delete wordbox" + reset)
-        println(red + "exit" + reset)
+        println(red + "exit - save and quit" + reset)
         println()
         choiceOfAction = saveReadIn("Please enter your choice:", listOf("1", "2", "3", "4", "5", "6", "exit"))
 
@@ -73,7 +73,7 @@ fun openMenu() {
                 var exitConfirmation = saveReadIn("Do you really want to exit the programm?", listOf("yes", "no"))
                 if (exitConfirmation == "yes") {
                     var serializedData = Json.encodeToString(allIndexBoxes)
-                    println(serializedData)
+                    //println(serializedData)
                     saveFile.writeText(serializedData)
                     exitProcess(0)
                 } else openMenu()

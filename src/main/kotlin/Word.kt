@@ -1,5 +1,4 @@
 import kotlinx.serialization.*
-
 @Serializable
 
 open class Word(
