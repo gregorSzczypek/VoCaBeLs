@@ -7,7 +7,7 @@ fun saveReadIn(question: String, allowedWords: List<String>): String {
         var input = ""
         println(question)
         println("Or type help to see available options or cancel to escape")
-        input = readln()
+        input = readln().lowercase()
         if (allowedWords.contains(input)) {
             //println("Input accepted")
             println()

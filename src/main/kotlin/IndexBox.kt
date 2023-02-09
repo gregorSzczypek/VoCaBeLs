@@ -26,9 +26,9 @@ data class IndexBox(
             "adjective" -> {
                 while (true) {
                     println("Type in the word in ${this.motherTongue}:")
-                    motherTongueWord = readln()
+                    motherTongueWord = readln().lowercase()
                     println("Type in the word in ${this.learningLanguage}:")
-                     learningLanguageWord = readln()
+                     learningLanguageWord = readln().lowercase()
 
                     var CheckExistence = false
                     for (i in adjectivesList){
@@ -57,9 +57,9 @@ data class IndexBox(
             "verb" -> {
                 while (true) {
                     println("Type in the word in ${this.motherTongue}:")
-                    motherTongueWord = readln()
+                    motherTongueWord = readln().lowercase()
                     println("Type in the word in ${this.learningLanguage}:")
-                    learningLanguageWord = readln()
+                    learningLanguageWord = readln().lowercase()
 
                     var CheckExistence = false
                     for (i in verbsList){
@@ -88,9 +88,9 @@ data class IndexBox(
             "noun" -> {
                 while (true) {
                     println("Type in the word in ${this.motherTongue}:")
-                    motherTongueWord = readln()
+                    motherTongueWord = readln().lowercase()
                     println("Type in the word in ${this.learningLanguage}:")
-                    learningLanguageWord = readln()
+                    learningLanguageWord = readln().lowercase()
 
                     var CheckExistence = false
                     for (i in nounsList){
