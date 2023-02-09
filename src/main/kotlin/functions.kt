@@ -125,12 +125,12 @@ fun createNewIndexBox() {
     var readInActive = true
     while (readInActive == true) {
         val motherTongueList = listOf<String>("german", "spanish", "english", "polish", "russian",
-        "turkish", "estonian", "mandarin", "french", "swedish", "norwegian", "arabic", "italian", "dutch", "finish",
+            "turkish", "estonian", "mandarin", "french", "swedish", "norwegian", "arabic", "italian", "dutch", "finish",
             "hungarian", "bulgarian", "slowenian", "klingonian", "sindarin", "esperanto")
         val learningLanguageList = mutableListOf<String>("german", "spanish", "english", "polish", "russian",
             "turkish", "estonian", "mandarin", "french", "swedish", "norwegian", "arabic", "italian", "dutch", "finish",
             "hungarian", "bulgarian", "slowenian", "klingonian", "sindarin", "esperanto")
-        val boxName = readlnNotEmpty("Name your wordbox (e.g. french-swedish):", "Worbox name cannot be empty")
+        val boxName = saveReadInWOHelpExit("Name your wordbox (e.g. french-swedish):")
         var isDuplicate = false
         for (i in allIndexBoxes) {
             if (i.indexBoxName == boxName) {
@@ -185,8 +185,9 @@ fun deleteWord() {
 }
 
 fun deleteIndexBox() {
-    println("Which wordbox would you like to delete?")
-    val nameToDelete = readln()
+    val nameToDelete = saveReadIn("Which wordbox would you like to delete?", stringListOfAllBoxes())
+//    println("Which wordbox would you like to delete?")
+//    val nameToDelete = readln()
     var existence = false
     var j = 0
     for (i in allIndexBoxes) {
@@ -394,7 +395,7 @@ fun createChoiceOfWords(numberOfRounds: Int, boxForTrainingSession: String): Mut
             choiceList.add(addWord)
             restOfWordsList.remove(addWord)
         } catch (e: Exception) {
-            println("Not enough words saved. There will be duplicates!")
+            println("Not enough words saved. Some words will appear several times.")
             break
         }
     }

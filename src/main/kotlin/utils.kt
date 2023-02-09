@@ -14,7 +14,42 @@ fun saveReadIn(question: String, allowedWords: List<String>): String {
             return input
         } else if (input == "help") {
             println("Choose from:")
-            println(allowedWords + "cancel")
+            if (allowedWords.size > 10){
+                var iAfterFor = 0
+                try {
+                    for (i in 0 until allowedWords.size step (10)) {
+                        print("${allowedWords[i]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 1]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 2]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 3]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 4]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 5]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 6]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 7]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 8]}, ")
+                        iAfterFor += 1
+                        print("${allowedWords[i + 9]}, ")
+                        iAfterFor += 1
+                        println()
+                    }
+                } catch (e: Exception) {
+                    iAfterFor += 1
+                    println("cancel")
+                }
+//                println((allowedWords.size))
+//                println(iAfterFor)
+                if ((allowedWords.size) == iAfterFor) {
+                    println("cancel")
+                }
+            } else println(allowedWords + "cancel")
         } else if (input == "cancel") {
             println("Going back home...")
             Thread.sleep(1200)
@@ -48,8 +83,22 @@ fun stringListOfAllBoxes(): List<String>{
     return listObjectToString
 }
 
-fun saveData(filepath: String){
-    val filepath = "Abschlussprojekt/Data.json"
-    val DataFile = File(filepath)
-    //DataFile.write
+fun saveReadInWOHelpExit(question: String, notAllowedWords: List<String> = listOf("help", "cancel", "exit", "")): String {
+        while (true) {
+            var input = ""
+            println(yellow + question + reset)
+            println(cyan + "Or type cancel to escape" + reset)
+            input = readln().lowercase()
+            if (!notAllowedWords.contains(input)) {
+                //println("Input accepted")
+                println()
+                return input
+            } else if (input == "cancel") {
+                println("Going back home...")
+                Thread.sleep(1200)
+                openMenu()
+            } else {
+                println(red + "Input cannot be empty, help or exit, try again..." + reset)
+            }
+        }
 }
