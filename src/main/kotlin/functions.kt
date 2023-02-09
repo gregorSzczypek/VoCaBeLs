@@ -213,7 +213,10 @@ fun showAllWordboxes() {
 
     for (i in allIndexBoxes){
         i.refreshConfidenceOfIndexBox()
-        println(yellowBG + black + "${i.indexBoxName.uppercase()} - ${i.confidence}%".padEnd(57) + reset)
+        println(yellowBG + black + "${i.indexBoxName.uppercase()} - ${i.confidence}%".padEnd(50) + reset)
+        var spaceTimesConf = " ".repeat(i.confidence/2)
+        var yellowPadding = " ".repeat(50-(i.confidence/2))
+        println(cyanBG + spaceTimesConf + reset + blackBG + yellowPadding + reset )
         println(purple + "ADJECTIVES" + reset)
         for (j in i.adjectivesList){
             println("${j.mothertongueTranslation} - ${j.learningLanguageTranslation} - ${j.confidence}% - " +
